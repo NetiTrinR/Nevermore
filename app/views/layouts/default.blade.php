@@ -1,15 +1,18 @@
 <!doctype html>
 <html lang="en">
 	<head>
-	    <meta charset="utf-8">
-    	<title>Nevermore - {{ $title }}</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="UTF-8">
 		<meta name="keywords" content="">
 		<meta name="description" content="">
 		<meta name="author" content="Michael Manning">
-		{{--- le styles -}}
+		<title>{{ (isset($title))? "$title - Nevermore" : "Nevermore" }}</title>
 		{{ HTML::Style('css/bootstrap.min.css') }}
-		<style type="text/css">
+		{{ HTML::Style('css/datepicker.css')}}
+		<style>
+			body {
+				padding-top: 60px;
+				padding-bottom: 40px;
+			}
 		</style>
 	</head>
 	<body>
@@ -21,80 +24,70 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="brand" href="{{ URL::route('home') }}">Nevermore</a>
-				</div>
-				<div class="nav-collapse collapse">
-					<ul class="nav">
-						<li {{ if (stripos($_SERVER['REQUEST_URI'],'/forum/') !== false) {echo 'class="active"';} }}>
-							<a href="{{ URL::route('forum.index') }}">Forum</a></li>
-						<li {{ if (stripos($_SERVER['REQUEST_URI'],'/calender/') !== false) {echo 'class="active"';} }}>
-							<a href="{{ URL::route('calender.index')}}">Calender</a></li>
-						<li {{ if (stripos($_SERVER['REQUEST_URI'],'/shop/') !== false) {echo 'class="active"';} }}>
-							<a href="{{ URL::route('shop.index') }}">Shop</a></li>
-						<li {{ if (stripos($_SERVER['REQUEST_URI'],'/donate/') !== false) {echo 'class="active"';} }}>
-							<a href="{{ URL::route('donation.index') }}">Donations</a></li>
-					</ul>
-					<ul class="nav pull-right">
-						@if (Sentry::check())
-							{{-- Logged in --}}
-							<li><a href="{{URL::route('logout')}}">Sign Out</a></li>
-							<li class="divider-vertical"></li>
-							<li>
-								You are <a  href="{{ URL::route('user.'.Sentry::getUser())}}">{{Sentry::getUser()}}</a>
-								<a href="{{URL::route('user.edit')}}"><i class="icon-cog icon-white"></i></a>
-							</li>
-						@else
-							{{-- Logged out --}}
-							<li><a href="{{ URL::user.signup }}">Sign Up</a></li>
-					        <li class="divider-vertical"></li>
-					        <li class="dropdown">
-					        	<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-					            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-					              {{-- Loggin form --}}
-									{{Form::open('user.login')}}
-										{{Form::token()}}
-										{{-- username field --}}
-										{{Form::text('email', array('placeholder' => 'Email'))}}
-										{{-- password field --}}
-										{{Form::password('password', array('placeholder'=>'Password'))}}
-										{{Form::label('remember', array('class'=>'checkbox'))}}
-										{{Form::checkbox('remember')}} Remember me?
-										{{-- login button --}}
-										{{Form::submit('Login', array('class'=>'btn'))}}
-									{{Form::close()}}
-					            </div>
-					        </li>
-						@endif
-					</ul>
+					<a href="{{ URL::Route('home') }}" class="brand">Nevermore</a>
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+							<li><a {{ (Request::is('forum'))? 'class="active"': '' }} href="{{ URL::Route('forum') }}">Forum</a></li>
+							<li><a {{ (Request::is('calender'))? 'class="active"': '' }} href="{{ URL::Route('calendar') }}">Calender</a></li>
+							<li><a {{ (Request::is('shop'))? 'class="active"': '' }} href="{{ URL::Route('shop') }}">Shop</a></li>
+							<li><a {{ (Request::is('donate'))? 'class="active"': '' }} href="{{ URL::Route('donate') }}">Donations</a></li>
+						</ul>
+						<ul class="nav pull-right">
+							@if(Sentry::check())
+								<li><a href="{{ URL::Route('logout') }}">Logout</a></li>
+								<li><a href="{{ URL::to('user/profile/'.Sentry::getUser()) }}"><i class="icon-user icon-white"></i> {{ Sentry::getUser() }}</a><div class="divider-vertical"></div><a href="{{ URL::to('user/profile/'.Sentry::getUser().'/edit') }}"><i class="icon-cog icon-white"></i></a></li>
+							@else
+								<li><a {{ (Request::is('user/register'))? 'class="active"': '' }} href="{{ URL::Route('register') }}">Sign Up</a></li>
+						        <li class="divider-vertical"></li>
+						        @if(Request::is('user/login'))
+									<li><a class="active" href="#">Sign In</a><li>
+						        @else
+							        <li class="dropdown">
+							        	<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+							            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+											{{ Form::open(['url' => '/user/login']) }}
+												{{ Form::token() }}
+												{{ Form::text('email', '', ['placeholder' => 'Email']) }}
+												{{ Form::text('pass', '', ['placeholder' => 'Password']) }}
+												<label class='checkbox'>
+													{{ Form::checkbox('remember', true, false) }} Remember me
+												</label>
+												{{ Form::submit('Login', ['class'=>'btn']) }}
+											{{ Form::close() }}
+							            </div>
+							        </li>
+						        @endif
+					        @endif
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="container fluid">
-
-			@yeild('content')
-
-			{{-- le Footer --}}
-			@section('footer')
+		{{-- Alerts here --}}
+		
+		<div class="container-fluid">
+			@include('notifications')
+			<div class="row-fluid">
+				@yield('content')
+			</div>
 			<hr>
-			<div class="span2"><p>Blha Blah bahr nevermore blahfg gsjkugngh &copy;</p></div>
-			@yield_section
-
+			<footer>
+				<div class="span2">&copy; Nevermore</div>
+				<div class="span2 pull-right">Other stuffs</div>
+			</footer>
 		</div>
-		{{-- le javascript --}}
 		{{ HTML::Script('js/jQuery-1.10.1.min.js') }}
 		{{ HTML::Script('js/bootstrap.min.js') }}
+		{{ HTML::Script('js/bootstrap-datepicker.js') }}
 		<script type="text/javascript">
-			@section('javascript')
 			$(document).ready(function() {
-			  // Setup drop down menu
-			  $('.dropdown-toggle').dropdown();
-			 
-			  // Fix input element click problem
-			  $('.dropdown input, .dropdown label').click(function(e) {
-			    e.stopPropagation();
-			  });
+				@section('javascript')
+					$('.dropdown-toggle').dropdown();
+					$('.dropdown input, .dropdown label').click(function(e) {
+			    		e.stopPropagation();
+			  		});
+				@show
 			});
-			@yeild_section
 		</script>
 	</body>
 </html>

@@ -12,7 +12,7 @@
 */
 //Get Methods
 //die(var_dump($_SERVER));
-
+// Route::controller('/admin', 'AdminController');
 Route::controller('/forum', 'ForumController', ['getIndex'=>'forum']);
 Route::controller('/user', 'UserController', ['getRegister'=>'register', 'getLogin' => 'login']);
 Route::controller('/shop', 'ShopController', ['getIndex'=>'shop', 'getDonate'=>'donate']);

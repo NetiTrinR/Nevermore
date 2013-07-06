@@ -17,7 +17,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/controllers',
 	app_path().'/models',
 	app_path().'/database/seeds',
-
+	app_path().'/libraries'
 ));
 
 /*
@@ -81,3 +81,21 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+|
+|--------------------------------------------------------------------------
+| Extended Validator Rules
+|--------------------------------------------------------------------------
+|
+|
+*/
+Validator::extend('validMinecraft', function($attribute, $value, $parameters)
+{
+	if(function_exists(isValidMinecraft)){
+		if(isValidMinecraft($attribute)){
+			return true;
+		}
+		return false;
+	}
+});
