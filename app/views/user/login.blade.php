@@ -5,18 +5,18 @@
 	<h3>Login</h3>
 	<div class="well">
 		<form action="{{ URL::to('users/login') }}" method="post">
-	        {{ Form::token(); }}
+	        {{ Form::token() }}
 
 	        <div class="control-group {{ ($errors->has('email')) ? 'error' : '' }}" for="email">
 	            <div class="controls">
-	                <input name="email" id="email" value="{{ Request::old('email') }}" type="text" class="input-xlarge" placeholder="E-mail">
+	                <input name="email" id="email" value="{{ Request::old('email') }}" type="text" class="input-xlarge" placeholder="E-mail"><br />
 	                {{ ($errors->has('email') ? $errors->first('email') : '') }}
 	            </div>
 	        </div>
 	    
 	       <div class="control-group {{ $errors->has('password') ? 'error' : '' }}" for="password">
 	            <div class="controls">
-	                <input name="password" value="" type="password" class="input-xlarge" placeholder="Password">
+	                <input name="password" value="" type="password" class="input-xlarge" placeholder="Password"><br />
 	                {{ ($errors->has('password') ? $errors->first('password') : '') }}
 	            </div>
 	        </div>

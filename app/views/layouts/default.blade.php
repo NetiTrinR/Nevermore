@@ -5,9 +5,11 @@
 		<meta name="keywords" content="">
 		<meta name="description" content="">
 		<meta name="author" content="Michael Manning">
-		<title>{{ (isset($title))? "$title - Nevermore" : "Nevermore" }}</title>
+		<title>{{ (isset($title)? "$title - Nevermore" : "Nevermore") }}</title>
 		{{ HTML::Style('css/bootstrap.min.css') }}
-		{{ HTML::Style('css/datepicker.css')}}
+		{{ HTML::Style('css/glyphicons.css') }}
+		{{ HTML::Style('css/datepicker.css') }}
+		{{ HTML::Style('css/style.css') }}
 		<style>
 			body {
 				padding-top: 60px;
@@ -27,17 +29,17 @@
 					<a href="{{ URL::Route('home') }}" class="brand">Nevermore</a>
 					<div class="nav-collapse collapse">
 						<ul class="nav">
-							<li><a {{ (Request::is('forum'))? 'class="active"': '' }} href="{{ URL::Route('forum') }}">Forum</a></li>
-							<li><a {{ (Request::is('calender'))? 'class="active"': '' }} href="{{ URL::Route('calendar') }}">Calender</a></li>
-							<li><a {{ (Request::is('shop'))? 'class="active"': '' }} href="{{ URL::Route('shop') }}">Shop</a></li>
-							<li><a {{ (Request::is('donate'))? 'class="active"': '' }} href="{{ URL::Route('donate') }}">Donations</a></li>
+							<li><a {{ (Request::is('forum')? 'class="active"': '') }} href="{{ URL::Route('forum') }}">Forum</a></li>
+							<li><a {{ (Request::is('calender')? 'class="active"': '') }} href="{{ URL::Route('calendar') }}">Calender</a></li>
+							<li><a {{ (Request::is('shop')? 'class="active"': '') }} href="{{ URL::Route('shop') }}">Shop</a></li>
+							<li><a {{ (Request::is('donate')? 'class="active"': '') }} href="{{ URL::Route('donate') }}">Donations</a></li>
 						</ul>
 						<ul class="nav pull-right">
 							@if(Sentry::check())
 								<li><a href="{{ URL::Route('logout') }}">Logout</a></li>
 								<li><a href="{{ URL::to('user/profile/'.Sentry::getUser()) }}"><i class="icon-user icon-white"></i> {{ Sentry::getUser() }}</a><div class="divider-vertical"></div><a href="{{ URL::to('user/profile/'.Sentry::getUser().'/edit') }}"><i class="icon-cog icon-white"></i></a></li>
 							@else
-								<li><a {{ (Request::is('user/register'))? 'class="active"': '' }} href="{{ URL::Route('register') }}">Sign Up</a></li>
+								<li><a {{ (Request::is('user/register')? 'class="active"': '') }} href="{{ URL::to('/user/register') }}">Sign Up</a></li>
 						        <li class="divider-vertical"></li>
 						        @if(Request::is('user/login'))
 									<li><a class="active" href="#">Sign In</a><li>
@@ -48,7 +50,7 @@
 											{{ Form::open(['url' => '/user/login']) }}
 												{{ Form::token() }}
 												{{ Form::text('email', '', ['placeholder' => 'Email']) }}
-												{{ Form::text('pass', '', ['placeholder' => 'Password']) }}
+												{{ Form::text('password', '', ['placeholder' => 'Password']) }}
 												<label class='checkbox'>
 													{{ Form::checkbox('remember', true, false) }} Remember me
 												</label>
@@ -62,9 +64,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		{{-- Alerts here --}}
-		
+		</div>		
 		<div class="container-fluid">
 			@include('notifications')
 			<div class="row-fluid">
@@ -73,7 +73,22 @@
 			<hr>
 			<footer>
 				<div class="span2">&copy; Nevermore</div>
-				<div class="span2 pull-right">Other stuffs</div>
+				<div class="span2">
+					<ul class="unstyled">
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Terms and Conditions</a></li>
+						<li><a href="#">Rules</li>
+					</ul>
+				</div>
+				<div class="span2 pull-right">
+					<ul class="inline social">
+						<li><a href="http://twitter.com/NevermoreServer"><div class="twitter"><i class="icon-g-twitter icon-g-white"></i></div></a></li>
+						<li><a href="http://www.facebook.com/NeverMoreServer"><div class="facebook"><i class="icon-g-facebook icon-g-white"></i></div></a></li>
+						<li><a href="http://www.youtube.com"><div class="youtube"><i class="icon-g-youtube icon-g-white"></i></div></a></li>
+						<!-- <li><a href="#"><div class="rss"><i class="icon-g-rss icon-g-white"></i></div></a></li> -->
+					</ul>
+				</div>
 			</footer>
 		</div>
 		{{ HTML::Script('js/jQuery-1.10.1.min.js') }}

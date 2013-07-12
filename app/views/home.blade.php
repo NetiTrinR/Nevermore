@@ -1,5 +1,5 @@
 @extends('layouts.default')
 
-@yield('content')
-	<h1>Howdy</h1>
-@endsection
+@section('content')
+	<h1>Howdy home page</h1>
+@stop
