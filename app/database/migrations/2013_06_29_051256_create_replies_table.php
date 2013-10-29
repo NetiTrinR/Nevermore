@@ -14,11 +14,13 @@ class CreateRepliesTable extends Migration {
 	{
 		Schema::create('replies', function(Blueprint $table)
 		{
-			$table->increments('rply_id');
-			$table->integer('rply_thread');
-			$table->text('rply_body');
-			$table->integer('rply_by');
+			$table->increments('id');
+			$table->integer('thread_id')->unsigned();
+			$table->text('body');
+			$table->integer('created_by')->unsigned();
+			$table->integer('flags')->unsigned()->default(0);
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

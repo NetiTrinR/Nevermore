@@ -21,7 +21,7 @@ class BaseController extends Controller {
 	 * @param  String  $mcUser Username of a minecraft account
 	 * @return boolean
 	 */
-	function isValidMinecraft($mcUser)
+	public function isValidMinecraft($mcUser)
 	{
 		$check_mcUser = file_get_contents('http://www.minecraft.net/haspaid.jsp?user='.$mcUser.'');
 		if ($check_mcUser == 'true') {

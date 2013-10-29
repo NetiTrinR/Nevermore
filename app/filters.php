@@ -35,13 +35,18 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('login');
+	if (!Sentry::check()) return Redirect::to('user/login');
 });
 
+Route::filter('owner', function($reply_id){ //WIP!!!
+	if (!Sentry::check()) return  Redirect::to('user/login');
 
-Route::filter('auth.basic', function()
+});
+
+Route::filter('admin_auth', function()
 {
-	return Auth::basic();
+		if (!Sentry::check()) return Redirect::to('user/login');
+		if (!Sentry::getUser()->hasAccess('admin')) return Response::view('errors.denied', [],'403');
 });
 
 /*
@@ -57,7 +62,7 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+	if (Sentry::check()) return Redirect::to('/');
 });
 
 /*

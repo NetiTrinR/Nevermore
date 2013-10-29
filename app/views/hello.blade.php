@@ -1,19 +1,21 @@
 @extends('layouts.default')
 
 @section('content')
-	<div class="row-fluid">
-		<div class="offset4 span4 well">
-			<center>
-				<h1>Server IP</h1>
-				<div class="well">Test IP</div>
-			</center>
+	<div class="row">
+		<div class="col-lg-offset-4 col-lg-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title">Server IP</h1>
+				</div>
+				<div class="panel-body">50.23.129.98:34765</div>
+			</div>
 		</div>
 	</div>
-	<div class="row-fluid">
+	<div class="row">
 		<center>
 			<h1>Lore</h1>
 			<div class="offset1 span10 well">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, doloremque, optio, nihil assumenda totam molestias delectus error dolor saepe quam eius harum odit rerum unde officia in voluptates quos porro ab provident atque cumque quod fugiat deleniti neque suscipit ducimus iure. Illum, nesciunt, corrupti, repellat quasi laboriosam vel possimus natus quis ullam voluptatem sed vero neque et veritatis fuga accusamus esse excepturi blanditiis inventore delectus cumque dignissimos veniam repudiandae sequi quos aut odit officia ducimus reiciendis error deserunt perferendis adipisci facere voluptatibus ab recusandae distinctio ut dolor fugiat alias. Vitae, at voluptatem placeat deleniti expedita voluptatum molestias facere fugit temporibus optio ea mollitia soluta commodi. Corrupti, cumque, totam ducimus labore voluptate officiis. Dolorum, maxime, nisi, maiores quaerat culpa deserunt aperiam nobis temporibus eum doloribus nostrum suscipit quam quo rem dicta recusandae hic eos cupiditate delectus blanditiis officiis ipsa amet praesentium enim sit repellendus similique iusto eaque tenetur quia error provident explicabo fugiat! Quae, perspiciatis, repellendus ad id voluptate aliquam quo repudiandae adipisci maiores illo explicabo nihil quas dignissimos voluptas in vitae delectus eos earum facilis hic ex dolorem non at qui porro unde natus. Officia, doloremque, id quis saepe dolorem pariatur ipsa omnis veniam eos minus. Laborum, suscipit, laboriosam, deleniti rem soluta expedita in eos saepe facere sunt praesentium fugit iusto harum dolores excepturi ex culpa repellat blanditiis eligendi animi consectetur consequuntur molestiae. Quod, distinctio, ducimus quam praesentium voluptate nam nisi temporibus labore modi eligendi expedita iure consequuntur tenetur quas numquam! Accusantium, quisquam, dolorem, at mollitia praesentium rem inventore quod nihil error illum non maxime ad minus cum reprehenderit ex quam harum laboriosam consequatur eligendi. Rerum, laboriosam, eveniet, non, libero doloremque reprehenderit esse alias perferendis atque ea maxime voluptas culpa fugit sint tenetur soluta adipisci praesentium deleniti impedit iure unde eligendi ipsa tempore ad consequuntur modi maiores sequi provident ducimus. Distinctio, doloribus, doloremque consequuntur dicta dolore nostrum minima dolorem nobis in quaerat. Ipsum, accusamus cum perferendis iure molestiae dolor laboriosam. Nesciunt, voluptatem, aspernatur, impedit voluptatibus quod perferendis ducimus atque repellat laborum assumenda voluptatum iure numquam error totam itaque consequatur sequi ad et similique omnis possimus alias facilis! Praesentium, quia accusantium magnam hic nam saepe voluptatum? Iste, ab enim sequi odit molestiae consectetur quos iure nisi aliquam alias qui atque asperiores soluta eos possimus quaerat a autem officia! Incidunt eveniet facilis eius ratione dolore. Ipsa, laudantium accusamus obcaecati amet dicta eos id dolores consequuntur. Minima, aliquid, quibusdam, adipisci similique iure autem accusamus id itaque incidunt facilis maiores odio. Provident esse doloremque ab repellendus vel necessitatibus aliquam! Ducimus, explicabo suscipit minus enim quisquam et excepturi odio adipisci perferendis totam quam alias aliquam optio facilis ex doloremque harum asperiores laudantium eveniet omnis veritatis quod assumenda vero. Saepe, praesentium, corporis magnam placeat inventore error maxime quasi accusamus temporibus voluptas quaerat ratione laudantium quisquam dignissimos obcaecati minima ab facilis sint quis animi quidem repellat nobis tenetur tempora id ipsa facere enim autem et officia magni aliquam cumque quos similique consequuntur reprehenderit cupiditate eius quas repudiandae libero dolores vitae eveniet itaque voluptatem beatae possimus! Enim, impedit.
+				
 			</div>
 		</center>
 	</div>

@@ -14,13 +14,13 @@ class CreateThreadsTable extends Migration {
 	{
 		Schema::create('threads', function(Blueprint $table)
 		{
-			$table->increments('thr_id');
-			$table->integer('thr_cat');
-			$table->string('thr_name');
-			$table->string('thr_subject');
-			$table->text('thr_body');
-			$table->integer('thr_by');
+			$table->increments('id');
+			$table->string('name');
+			$table->string('subject');
+			$table->integer('cat_id')->unsigned();
+			$table->timestamp('locked_at')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

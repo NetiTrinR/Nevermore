@@ -11,21 +11,36 @@ class SentrySeeder extends Seeder {
         DB::table('users_groups')->delete();
  
         Sentry::getUserProvider()->create(array(
-            'email'       => 'admin@admin.com',
-            'password'    => "admin",
-            'username'    => 'Seed',
-            'first_name'  => 'John',
-            'last_name'   => 'McClane',
+            'email'       => 'netitrinr@gmail.com',
+            'password'    => "123456",
+            'username'    => 'Rails',
+            'first_name'  => 'Michael',
+            'last_name'   => 'Manning',
             'activated'   => 1,
         ));
- 
+        Sentry::getUserProvider()->create(array(
+            'email'       => 'another@email.com',
+            'password'    => "123456",
+            'username'    => 'Another user',
+            'first_name'  => 'rawren',
+            'last_name'   => 'derpderp',
+            'activated'   => 1,
+        ));
+        Sentry::getUserProvider()->create(array(
+            'email'       => 'oncemore@gmail.com',
+            'password'    => "123456",
+            'username'    => 'LaFleur',
+            'first_name'  => 'Hannah',
+            'last_name'   => 'leriver',
+            'activated'   => 1,
+        ));
         Sentry::getGroupProvider()->create(array(
             'name'        => 'Admin',
             'permissions' => array('admin' => 1),
         ));
  
         // Assign user permissions
-        $adminUser  = Sentry::getUserProvider()->findByLogin('admin@admin.com');
+        $adminUser  = Sentry::getUserProvider()->findByLogin('netitrinr@gmail.com');
         $adminGroup = Sentry::getGroupProvider()->findByName('Admin');
         $adminUser->addGroup($adminGroup);
     }

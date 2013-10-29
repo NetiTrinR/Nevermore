@@ -10,11 +10,39 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-//Get Methods
-//die(var_dump($_SERVER));
-// Route::controller('/admin', 'AdminController');
-Route::controller('/forum', 'ForumController', ['getIndex'=>'forum']);
-Route::controller('/user', 'UserController', ['getRegister'=>'register', 'getLogin' => 'login']);
-Route::controller('/shop', 'ShopController', ['getIndex'=>'shop', 'getDonate'=>'donate']);
+
+//Forum Routes
+Route::get('/forum', ['uses'=>'ForumController@getIndex', 'as'=>'forum']);
+Route::group(['before' => 'auth'], function(){
+	Route::get('/forum/create', ['uses'=>'ForumController@getCreate']);
+	Route::post('/forum/create', ['uses'=>'ForumController@postCreate']);
+	Route::get('/forum/delete/{type}/{id}',['uses'=>'ForumController@getDelete']);
+	Route::post('/forum/reply', 'ForumController@postReply');
+	Route::post('/forum/createTag', ['uses'=>'ForumController@postCreateTag']);
+	Route::get('/forum/chosenTags',['uses'=>'ForumController@getChosenTags']);
+	Route::post('/forum/flag', ['uses'=>'ForumController@postFlag']);
+	Route::get('/forum/{thread}/edit', ['uses'=>'ForumController@getEdit']);
+	Route::post('/forum/{thread}/edit', ['uses'=>'ForumController@postEdit']);
+});
+Route::get('/forum/{thread}',['uses'=>'ForumController@getThread']);
+
+//User routes
+Route::get('/user/login', ['uses'=>'UserController@getLogin','as'=>'login']);
+Route::post('/user/login', 'UserController@postLogin');
+Route::get('/user/logout', ['uses'=>'UserController@getLogout','as'=>'logout']);
+Route::get('/user/register', ['uses'=>'UserController@getRegister','as'=>'register']);
+Route::post('/user/register', 'UserController@postRegister');
+Route::get('/user/activate/{userId}/{activationCode}', 'UserController@getActivate');
+Route::get('/user/{user}/profile', 'UserController@getProfile');
+Route::post('/user/{user}/profile', 'UserController@postProfile');
+Route::get('/user/{user}/edit', 'UserController@getEdit');
+Route::post('/user/{user}/edit', 'UserController@postEdit');
+
+
+Route::controller('/shop', 'ShopController', ['getIndex'=>'shop', 'getCash'=>'cash']);
 Route::controller('/calendar', 'CalendarController', ['getIndex'=>'calendar']);
-Route::controller('/', 'HomeController', ['getHome'=>'home', 'getHello'=>'hello']);
+// Route::controller('/docs', 'DocumentationController');//May be added to the site later
+//Admin Controller
+Route::controller('/admin', 'AdminController', ['getIndex'=>'admin']);
+//content controller
+Route::controller('/', 'HomeController', ['getHome'=>'home', 'getIndex'=>'hello', 'getAbout'=>'about', 'getPrivacy'=>'privacy', 'getTerms'=>'terms', 'getRules'=>'rules', 'getFaq' => 'faq', 'getBug' => 'bug']);

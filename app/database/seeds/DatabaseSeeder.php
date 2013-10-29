@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder {
  
         $this->call('ContentSeeder');
         $this->command->info('Content tables seeded!');
+
+        $this->call('ShopSeeder');
+        $this->command->info('Shop tables seeded!');
 	}
 
 }
