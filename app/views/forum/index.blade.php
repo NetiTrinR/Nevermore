@@ -19,13 +19,13 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul id="userTabs" class="nav nav-tabs">
-				<li><a href="#tag" class="tab1" data-toggle="tab">Top Tags</a></li>
+				<li><a href="#tag-thread" class="tab1" data-toggle="tab">Top Tags</a></li>
 				<li class="active"><a href="#recent" class="tab2" data-toggle="tab">Recent</a></li>
 				<li><a href="#trend" class="tab3" data-toggle="tab">Trending</a></li>
 				<li><a href="#bump" class="tab4" data-toggle="tab">Bumped</a></li>
 			</ul>
 			<div class="tab-content">
-				<div class="tab-pane" id="tag" style="margin-top:5px;"></div>
+				<div class="tab-pane" id="tag-thread" style="margin-top:5px;"></div>
 				<div class="tab-pane active" id="recent" style="margin-top:5px;">
 					@foreach($recent as $thread)
 						<div class="panel panel-default" style="margin-bottom:5px;">
@@ -99,10 +99,11 @@
 @section('javascript')
 	$('#tag-submit').on('click', function(e){
 		e.preventDefault();
+		// console.log($('#tag').val());
 		$.ajax({
 			type: "POST",
 			url: "{{URL::to('forum/createTag')}}",
-			data: {tag:$('#tag').val()},
+			data: {tags:$('#tag').val()},
 			success: function(output){
 				switch(output.outcome){
 					case 1://Success
@@ -117,7 +118,6 @@
 					break;
 				}
 				$('#tag-help-block').closest('.help-block').html(output.msg);
-				updateChosenTags();
 			}
 		});
 	});

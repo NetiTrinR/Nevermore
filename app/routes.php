@@ -24,7 +24,9 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('/forum/{thread}/edit', ['uses'=>'ForumController@getEdit']);
 	Route::post('/forum/{thread}/edit', ['uses'=>'ForumController@postEdit']);
 });
+Route::get('/tag/{tag}',['uses'=>'ForumController@getTag']);
 Route::get('/forum/{thread}',['uses'=>'ForumController@getThread']);
+
 
 //User routes
 Route::get('/user/login', ['uses'=>'UserController@getLogin','as'=>'login']);

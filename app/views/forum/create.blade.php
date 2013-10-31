@@ -45,14 +45,16 @@
 	@include('forum.createTag')
 @endsection
 @section('javascript')
+	// console.log($('#tag'));
 	updateChosenTags();
 	$('.chosen-select').chosen({});
 	$('#tag-submit').on('click', function(e){
 		e.preventDefault();
+		// console.log($('#tag').val());
 		$.ajax({
 			type: "POST",
 			url: "{{URL::to('forum/createTag')}}",
-			data: {tag:$('#tag').val()},
+			data: {tags:$('#tag').val()},
 			success: function(output){
 				switch(output.outcome){
 					case 1://Success

@@ -57,6 +57,24 @@ class ForumController extends BaseController {
 			return App::abort(404);
 		}
 	}
+	public function getTag($id, $page = 1){
+		try
+		{
+			$tag = Tag::where('id', $id)->firstOrFail();
+			$threads = $tag->threads()->skip(($page-1)*30)->take(30)->get();
+			foreach ($threads as $thread) {
+				$thread{'count'} = Reply::where('thread_id','=',$thread->id)->count();
+				$thread{'first'} = Reply::select('replies.id','replies.created_at','users.username','users.email')->where('thread_id','=',$thread->id)->join('users','replies.created_by','=','users.id')->orderBy('replies.created_at','asc')->first();
+				$thread{'last'} = Reply::select('replies.id','replies.created_at','users.username','users.email')->where('thread_id','=',$thread->id)->join('users','replies.created_by','=','users.id')->orderBy('replies.created_at','desc')->first();
+			}
+			return '<pre>'.var_dump($threads).'</pre>';
+
+		}
+		catch(Illuminate\Database\Eloquent\ModelNotFoundException $e)
+		{
+			return App::abort(404);
+		}
+	}
 	public function postReply(){
 		$input =[
 			'body' => Binput::get('body'),
@@ -152,16 +170,14 @@ class ForumController extends BaseController {
 	}
 	public function postCreateTag(){
 		$input = [
-			'tags' => Binput::get('tag')
+			'tags' => Binput::get('tags')
 		];
 		$rules = [
 			'tags' => ['required','regex:/^([a-zA-Z0-9_-]+( |))*$/']
 		];
-		$messages = [
-
-		];
 		$v = Validator::make($input, $rules);
 		if($v->fails()){
+			return $v->messages();
 			return Response::json(['outcome' => 2,'msg' => 'Your input doesn\'t match the correct format. You are only allowed to use alpha-numeric characters and dashs in the tag name.']);
 		}else{
 			$errorTags = array();
