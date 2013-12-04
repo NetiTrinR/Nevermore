@@ -153,6 +153,7 @@
 		<script src="{{ URL::to('/js/bootstrap.min.js') }}"></script>
 		<script src="{{ URL::to('/js/respond.min.js') }}"></script>
 		<script src="{{ URL::to('/js/chosen.jquery.min.js')}}"></script>
+		<script src="{{URL::to('/js/bootstrap-switch.min.js')}}"></script>
 		<!-- Markdown requires -->
 		<script src="{{ URL::to('/js/markdown.js') }}"></script>
 		<script src="{{ URL::to('/js/to-markdown.js') }}"></script> <!-- I think we don't need this but it is still a dependency for bootstrap-markdown.js -->
