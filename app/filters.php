@@ -43,6 +43,11 @@ Route::filter('owner', function($reply_id){ //WIP!!!
 
 });
 
+Route::filter('ajax_only', function(){
+	if(!Request::ajax())
+		return App::abort(404);
+});
+
 Route::filter('admin_auth', function()
 {
 		if (!Sentry::check()) return Redirect::to('user/login');

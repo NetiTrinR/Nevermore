@@ -40,7 +40,7 @@ Route::post('/user/{user}/profile', 'UserController@postProfile');
 Route::get('/user/{user}/edit', 'UserController@getEdit');
 Route::post('/user/{user}/edit', 'UserController@postEdit');
 
-
+Route::controller('/ajax', 'AjaxController');
 Route::controller('/shop', 'ShopController', ['getIndex'=>'shop', 'getCash'=>'cash']);
 Route::controller('/calendar', 'CalendarController', ['getIndex'=>'calendar']);
 // Route::controller('/docs', 'DocumentationController');//May be added to the site later

@@ -61,14 +61,21 @@ class ForumController extends BaseController {
 		try
 		{
 			$tag = Tag::where('id', $id)->firstOrFail();
+			$tag->threadcount = $tag->threads()->count();
+			$tag->username = User::find($tag->created_by)->username;
+			// $tag->lastused = ;
+			return var_dump($tag->lastused);
 			$threads = $tag->threads()->skip(($page-1)*30)->take(30)->get();
 			foreach ($threads as $thread) {
 				$thread{'count'} = Reply::where('thread_id','=',$thread->id)->count();
 				$thread{'first'} = Reply::select('replies.id','replies.created_at','users.username','users.email')->where('thread_id','=',$thread->id)->join('users','replies.created_by','=','users.id')->orderBy('replies.created_at','asc')->first();
 				$thread{'last'} = Reply::select('replies.id','replies.created_at','users.username','users.email')->where('thread_id','=',$thread->id)->join('users','replies.created_by','=','users.id')->orderBy('replies.created_at','desc')->first();
 			}
-			return '<pre>'.var_dump($threads).'</pre>';
-
+			return View::make('forum.tag')
+				->with('tag',$tag)
+				->with('threads', $threads)
+				->with('title', $tag->name)
+				->with('header',[$tag->name, 'Tag information']);
 		}
 		catch(Illuminate\Database\Eloquent\ModelNotFoundException $e)
 		{
@@ -147,14 +154,18 @@ class ForumController extends BaseController {
 		if($type!=null||$id!=null){
 			try{
 				switch($type){
+					case'reply':
+						$delete = Reply::find($id);
+						$created_by = $delete->created_by;
+					break;
+					case'tag':
+						$delete = Tag::find($id);
+						$created_by = $delete->created_by;
+					break;
 					case 'thread':
 						$delete = Thread::find($id);
 						$first = Reply::where('thread_id','=', $delete->id)->orderBy('created_at', 'asc')->firstOrFail();
 						$created_by = $first->created_by;
-					break;
-					case'reply':
-						$delete = Reply::find($id);
-						$created_by = $delete->created_by;
 					break;
 				}
 				if(Sentry::getUser()->hasAnyAccess(['admin'])||$delete->created_by == Sentry::getUser()->id){

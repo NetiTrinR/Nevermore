@@ -101,12 +101,10 @@ class UserController extends BaseController
 	}
 
 	public function postRegister(){
-		//Custom rules?
 		Validator::extend('minecraft', function($attribute, $value, $parameters){
 			$check_mcUser = file_get_contents('http://www.minecraft.net/haspaid.jsp?user='.$value.'');
-			if ($check_mcUser == 'true') {
+			if ($check_mcUser == 'true')
 				return true;
-			}
 			return false;
 		});
 		$input = [
@@ -125,7 +123,6 @@ class UserController extends BaseController
 			'last_name' 			=> 'required|min:2|alpha',
 			'dob' 					=> 'required|before:now',
 			'username' 				=> 'required|alpha_num|unique:users',
-			//minecraft is a custom rule defined in helpers.php
 			'mcname' 				=> 'required|alpha_dash|max:16|unique:users|minecraft',
 			'email' 				=> 'required|min:4|max:32|email|unique:users',
 			'email_confirmation' 	=> 'required',
